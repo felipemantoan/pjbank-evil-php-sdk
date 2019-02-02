@@ -146,8 +146,12 @@ class PJBankClient
             RequestOptions::JSON => $data,
             RequestOptions::HEADERS => ['X-CHAVE' => $this->chave],
         ]);
+        
+        $data = $response
+            ->getBody()
+            ->getContents();
 
-        return $response->getBody();
+        return json_decode($data) ?: [];
     }
 
     public function setChave(string $chave)
