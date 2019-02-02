@@ -150,14 +150,23 @@ class PJBankClient
         return $response->getBody();
     }
 
-    public function __set($atributo = NULL, $valor = NULL) { 
-        $this->$atributo = $valor;
-        return $this;
+    public function setChave(string $chave)
+    {
+        $this->chave = $chave;
     }
 
-    public function __get($atributo) { 
-        return $this->$atributo ?: null;
+    public function getChave() {
+        return $this->chave;
     }
 
+    public function setCredencial(string $credencial)
+    {
+        $this->credencial = $credencial;
+    }
+
+    public function getCredencial()
+    {
+        return $this->credencial;
+    }
 
 }
