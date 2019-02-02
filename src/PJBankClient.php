@@ -15,13 +15,13 @@ use GuzzleHttp\Handler\CurlHandler;
 class PJBankClient
 {
     /**
-     * URL base da API
+     * URI base da API.
      * @var string
      */
     const API_URI = "https://api.pjbank.com.br/";
 
     /**
-     * URL base da API
+     * URI base da API Sandbox.
      * @var string
      */
     const SANDBOX_URI = "https://sandbox.pjbank.com.br/";
@@ -50,6 +50,8 @@ class PJBankClient
      * @param callable $handler
      *   Caso necessário faz uso de um handler diferente.
      *   E.g. \GuzzleHttp\Handler\CurlHandler.
+     * 
+     * @return \PJBank\PJBankClient
      */
     public static function create(array $configs = [], bool $sandbox = false, callable $handler = null) 
     {
@@ -65,6 +67,16 @@ class PJBankClient
         );
     }
 
+    /**
+     * Construtor da classe.
+     * 
+     * @param GuzzleHttp\ClientInterface $client
+     *   Uma instancia de GuzzleHttp\Client
+     * @param string $credencial
+     *   Credencial válida.
+     * @param string $chave
+     *   Uma chave válida.
+     */
     public function __construct(ClientInterface $client, string $credencial = null, string $chave = null)
     {
         $this->client = $client;
