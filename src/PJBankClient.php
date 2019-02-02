@@ -94,7 +94,7 @@ class PJBankClient
      *   Endpoint modificado.
      *   E.g. /contadigital/ddf9acf38aed262f90906ede9ac20333/transacaoes
      */
-    protected function parseEndpoint(string $endpoint) {
+    protected function parseEndpoint(string &$endpoint) {
 
         // Verifica se existe uma credencial na string.
         if (strpos($endpoint, '{{ %credencial% }}') !== false) {
@@ -105,13 +105,6 @@ class PJBankClient
 
         // Dispara uma excessão caso não exista uma {{ %credencial% }} no endpoint.
         throw new Exception('Num pode né!');
-    }
-
-    private function checksKeyAndCredencial(bool $withKey = true) {
-
-        if ($withKey && (empty($this->chave) || empty($this->credencial))) {
-            throw new Exception('Num pode né!');
-        }
     }
 
     public function sendPut(string $endpoint, array $data = []) 
@@ -134,12 +127,30 @@ class PJBankClient
         return $this->send('GET', $endpoint, $data);
     }
 
+    /**
+     * Este método faz a requisisão a api.
+     * 
+     * @param string $method
+     *   Tipo da requisição a ser enviada.
+     * @param string $endpoint
+     *   Endpoint a que compoe a requisição.
+     * @param array $data
+     *   Dados que serão enviados na requisição.
+     * @param bool $withKey
+     *   Configuração que verifica se a requisição precisa da chave ou credencial.
+     * 
+     * @return array 
+     *   Dados vindos da requisição.
+     */
     protected function send(string $method, string $endpoint, array $data = [], bool $withKey = true) 
     {
-
         if ($withKey) {
-            $this->checksKeyAndCredencial($withKey);
-            $endpoint = $this->parseEndpoint($endpoint);
+
+            if ((empty($this->chave) || empty($this->credencial))) {
+                throw new Exception('Num pode né!');
+            }
+
+            $this->parseEndpoint($endpoint);
         }
         
         $response = $this->client->request($method, $endpoint, [
@@ -147,27 +158,35 @@ class PJBankClient
             RequestOptions::HEADERS => ['X-CHAVE' => $this->chave],
         ]);
         
-        $data = $response
-            ->getBody()
-            ->getContents();
-
-        return json_decode($data) ?: [];
+        return json_decode($response->getBody(), true) ?: [];
     }
 
+    /**
+     * Setter da chave.
+     */
     public function setChave(string $chave)
     {
         $this->chave = $chave;
     }
 
+    /**
+     * Getter da chave.
+     */
     public function getChave() {
         return $this->chave;
     }
 
+    /**
+     * Setter da credencial.
+     */
     public function setCredencial(string $credencial)
     {
         $this->credencial = $credencial;
     }
 
+    /**
+     * Getter da credencial.
+     */
     public function getCredencial()
     {
         return $this->credencial;
