@@ -41,7 +41,15 @@ class PJBankClient
     protected $credencial;
 
     /**
-     * Este método faz a instancia da classe usando 
+     * Este método faz a instancia da classe.
+     * 
+     * @param array $configs
+     *   Configurações contendo a chave e/ou credencial.
+     * @param bool $sandbox
+     *   Faz o setup para o ambiente de sandbox.
+     * @param callable $handler
+     *   Caso necessário faz uso de um handler diferente.
+     *   E.g. \GuzzleHttp\Handler\CurlHandler.
      */
     public static function create(array $configs = [], bool $sandbox = false, callable $handler = null) 
     {
@@ -52,8 +60,8 @@ class PJBankClient
                     $handler ?? new CurlHandler()
                 ),
             ]),
-            $configs['credencial'] ?: null,
-            $configs['chave'] ?: null
+            $configs['credencial'] ?? null,
+            $configs['chave'] ?? null
         );
     }
 
