@@ -1,6 +1,6 @@
 <?php
 
-namespace PJBank;
+namespace PJBank\Client;
 
 use Exception;
 use GuzzleHttp\Client;
@@ -12,7 +12,7 @@ use GuzzleHttp\Handler\CurlHandler;
 /**
  * Client Factory
  */
-interface PJBankClientInterface
+interface PJBankInterface
 {
     /**
      * URI base da API.
