@@ -12,7 +12,7 @@ use GuzzleHttp\Handler\CurlHandler;
 /**
  * Client Factory
  */
-class PJBank implements PJPJBankInterface
+class PJBank implements PJBankInterface
 {
     /**
      * A chave gerada após o cadastro.
