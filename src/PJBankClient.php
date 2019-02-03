@@ -92,7 +92,7 @@ class PJBankClient implements PJPJBankClientInterface
         }
 
         // Dispara uma excessão caso não exista uma {{ %credencial% }} no endpoint.
-        throw new Exception('Endpoint inválido deve conter a credencial.');
+        throw new Exception('Este endpoint deve conter a credencial.');
     }
 
     public function sendPut(string $endpoint, array $data = []) 
