@@ -12,20 +12,8 @@ use GuzzleHttp\Handler\CurlHandler;
 /**
  * Client Factory
  */
-class PJBankClient
+class PJBankClient implements PJPJBankClientInterface
 {
-    /**
-     * URI base da API.
-     * @var string
-     */
-    const API_URI = "https://api.pjbank.com.br/";
-
-    /**
-     * URI base da API Sandbox.
-     * @var string
-     */
-    const SANDBOX_URI = "https://sandbox.pjbank.com.br/";
-
     /**
      * A chave gerada após o cadastro.
      * 
@@ -104,7 +92,7 @@ class PJBankClient
         }
 
         // Dispara uma excessão caso não exista uma {{ %credencial% }} no endpoint.
-        throw new Exception('Num pode né!');
+        throw new Exception('Endpoint inválido deve conter a credencial.');
     }
 
     public function sendPut(string $endpoint, array $data = []) 
