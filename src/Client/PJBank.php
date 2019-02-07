@@ -88,7 +88,7 @@ class PJBank implements PJBankInterface
         if (strpos($endpoint, '{{ %credencial% }}') !== false) {
             // Substitui {{ %credencial% }} por uma hash.
             // E.g. ddf9acf38aed262f90906ede9ac20333
-            return strtr($endpoint, '{{ %credencial% }}', $this->credencial);
+            return str_replace('{{ %credencial% }}', $this->credencial, $endpoint);
         }
 
         // Dispara uma excessão caso não exista uma {{ %credencial% }} no endpoint.
