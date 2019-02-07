@@ -82,7 +82,7 @@ class PJBank implements PJBankInterface
      *   Endpoint modificado.
      *   E.g. /contadigital/ddf9acf38aed262f90906ede9ac20333/transacaoes
      */
-    protected function parseEndpoint(string &$endpoint) {
+    protected function parseEndpoint(string $endpoint) {
 
         // Verifica se existe uma credencial na string.
         if (strpos($endpoint, '{{ %credencial% }}') !== false) {
@@ -134,11 +134,15 @@ class PJBank implements PJBankInterface
     {
         if ($withKey) {
 
-            if ((empty($this->chave) || empty($this->credencial))) {
-                throw new Exception('Num pode né!');
+            if (empty($this->chave)) {
+                throw new Exception('Chave não pode ser vazia.');
+            } 
+            
+            if (empty($this->credencial)) {
+                throw new Exception('Credencial não pode ser vazia.');
             }
 
-            $this->parseEndpoint($endpoint);
+            $endpoint = $this->parseEndpoint($endpoint);
         }
         
         $response = $this->client->request($method, $endpoint, [
