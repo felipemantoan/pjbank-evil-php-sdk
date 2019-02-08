@@ -1,0 +1,22 @@
+{
+  "editor.insertSpaces": false,
+  "editor.tabSize": 2,
+  "editor.wordSeparators": "`~!@#%^&*()-=+[{]}\\|;:'\",.<>/?",
+  "emmet.includeLanguages": {
+      "twig": "html"
+  },
+  "files.associations": {
+    "*.html": "twig"
+  },
+  "files.encoding": "utf8",
+  "files.trimTrailingWhitespace": true,
+  "files.watcherExclude": {
+    "**vendor/*/**" : true,
+    "**bin/*/**" : true,
+  },
+  "php.suggest.basic": false,
+  "php.validate.executablePath": "/usr/bin/php",
+  "phpcs.enable": true,
+  "phpcs.standard": "./vendor/escapestudios/symfony2-coding-standard/Symfony",
+  "phpcs.executablePath": "./vendor/bin/phpcs",
+}
