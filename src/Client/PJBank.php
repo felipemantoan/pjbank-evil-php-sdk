@@ -2,12 +2,13 @@
 
 namespace PJBank\Client;
 
-use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
+use PJBank\Exception\CredentialNotFoundException;
+use PJBank\Exception\KeyNotFoundException;
 
 /**
  * Client Factory
@@ -16,21 +17,21 @@ class PJBank implements PJBankInterface
 {
     /**
      * A chave gerada após o cadastro.
-     * 
+     *
      * @var string
      */
     protected $chave;
 
     /**
      * A credencial gerada após o cadastro.
-     * 
+     *
      * @var string
      */
     protected $credencial;
 
     /**
      * Este método faz a instancia da classe.
-     * 
+     *
      * @param array $configs
      *   Configurações contendo a chave e/ou credencial.
      * @param bool $sandbox
@@ -38,10 +39,10 @@ class PJBank implements PJBankInterface
      * @param callable $handler
      *   Caso necessário faz uso de um handler diferente.
      *   E.g. \GuzzleHttp\Handler\CurlHandler.
-     * 
+     *
      * @return \PJBank\PJBankClient
      */
-    public static function create(array $configs = [], bool $sandbox = false, callable $handler = null) 
+    public static function create(array $configs = [], bool $sandbox = false, callable $handler = null)
     {
         return new static(
             new Client([
@@ -57,7 +58,7 @@ class PJBank implements PJBankInterface
 
     /**
      * Construtor da classe.
-     * 
+     *
      * @param GuzzleHttp\ClientInterface $client
      *   Uma instancia de GuzzleHttp\Client
      * @param string $credencial
@@ -74,10 +75,10 @@ class PJBank implements PJBankInterface
 
     /**
      * Este método inclui uma credencial no endpoint.
-     * 
+     *
      * @param string $endpoint
      *   Parte de uma url E.g. /contadigital/{{ %credencial% }}/transacaoes
-     * 
+     *
      * @return string
      *   Endpoint modificado.
      *   E.g. /contadigital/ddf9acf38aed262f90906ede9ac20333/transacaoes
@@ -95,12 +96,12 @@ class PJBank implements PJBankInterface
         throw new Exception('Este endpoint deve conter a credencial.');
     }
 
-    public function sendPut(string $endpoint, array $data = []) 
+    public function sendPut(string $endpoint, array $data = [])
     {
         return $this->send('PUT', $endpoint, $data);
     }
 
-    public function sendDelete(string $endpoint, array $data = []) 
+    public function sendDelete(string $endpoint, array $data = [])
     {
         return $this->send('DELETE', $endpoint, $data);
     }
@@ -110,14 +111,14 @@ class PJBank implements PJBankInterface
         return $this->send('POST', $endpoint, $data, $withKey);
     }
 
-    public function sendGet(string $endpoint, array $data = []) 
+    public function sendGet(string $endpoint, array $data = [])
     {
         return $this->send('GET', $endpoint, $data);
     }
 
     /**
      * Este método faz a requisisão a api.
-     * 
+     *
      * @param string $method
      *   Tipo da requisição a ser enviada.
      * @param string $endpoint
@@ -126,37 +127,37 @@ class PJBank implements PJBankInterface
      *   Dados que serão enviados na requisição.
      * @param bool $withKey
      *   Configuração que verifica se a requisição precisa da chave ou credencial.
-     * 
-     * @return array 
+     *
+     * @return array
      *   Dados vindos da requisição.
      */
-    protected function send(string $method, string $endpoint, array $data = [], bool $withKey = true) 
+    protected function send(string $method, string $endpoint, array $data = [], bool $withKey = true)
     {
         if ($withKey) {
 
             if (empty($this->chave)) {
-                throw new Exception('Chave não pode ser vazia.');
-            } 
-            
+                throw new CredentialNotFoundException();
+            }
+
             if (empty($this->credencial)) {
-                throw new Exception('Credencial não pode ser vazia.');
+                throw new KeyNotFoundException();
             }
 
             $endpoint = $this->parseEndpoint($endpoint);
         }
-        
+
         $response = $this->client->request($method, $endpoint, [
             RequestOptions::JSON => $data,
             RequestOptions::HEADERS => ['X-CHAVE' => $this->chave],
         ]);
-        
+
         return json_decode($response->getBody(), true) ?: [];
     }
 
     /**
      * Setter da chave.
      */
-    public function setChave(string $chave)
+    public function setChave(string $chave = null)
     {
         $this->chave = $chave;
     }
@@ -171,7 +172,7 @@ class PJBank implements PJBankInterface
     /**
      * Setter da credencial.
      */
-    public function setCredencial(string $credencial)
+    public function setCredencial(string $credencial = null)
     {
         $this->credencial = $credencial;
     }
