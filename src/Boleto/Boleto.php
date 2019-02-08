@@ -2,6 +2,8 @@
 
 namespace PJBank\Boleto;
 
+use DateTime;
+
 /**
  * Boleto Registrado
  * @author Matheus Fidelis
@@ -11,125 +13,127 @@ class Boleto
 {
 
     /**
-     * Vencimento do boleto bancário
-     * @var date
+     * Vencimento do boleto bancário.
+     * @var \DateTime
      */
-    private $vencimento;
+    protected $vencimento;
+
     /**
      * Valor total do boleto
-     * @var
-     */
-    private $valor;
-    /**
-     * Valor do juros cobrado no boleto
      * @var float
      */
-    private $juros;
+    protected $valor;
+
     /**
-     * valor da multa cobrada em um boleto
+     * Valor do juros cobrado no boleto.
      * @var float
      */
-    private $multa;
+    protected $juros;
+
     /**
-     * Valor de um desconto
+     * Valor da multa cobrada em um boleto.
+     *
      * @var float
      */
-    private $desconto;
+    protected $multa;
+
     /**
-     * Nome do cliente final
+     * Valor de um desconto.
+     *
+     * @var float
+     */
+    protected $desconto;
+
+    /**
+     * Nome do cliente final.
+     *
+     * @var string
+     */
+    protected $nome_cliente;
+
+    /**
+     * CPF do cliente final.
      * @var
      */
-    private $nome_cliente;
+    protected $cpf_cliente;
+
     /**
-     * CPF do cliente final
+     * Endereço do cliente final.
      * @var
      */
-    private $cpf_cliente;
+    protected $endereco_cliente;
+
     /**
-     * Endereço do cliente final
+     * Numero residencial do cliente final.
      * @var
      */
-    private $endereco_cliente;
+    protected $numero_cliente;
+
     /**
-     * Numero residencial do cliente final
+     * Complemento opcional do endereço do cliente.
+     *
+     * @var string
+     */
+    protected $complemento_cliente;
+
+    /**
+     * Bairro do cliente final.
+     *
      * @var
      */
-    private $numero_cliente;
+    protected $bairro_cliente;
+
     /**
-     * Complemento opcional do endereço do cliente
+     * Cidade do cliente final.
      * @var
      */
-    private $complemento_cliente;
+    protected $cidade_cliente;
+
     /**
-     * Bairro do cliente final
+     * Cidade do cliente final.
      * @var
      */
-    private $bairro_cliente;
+    protected $cep_cliente;
+
     /**
-     * Cidade do cliente final
+     * Link do logo impresso no boleto.
      * @var
      */
-    private $cidade_cliente;
+    protected $logo_url;
+
     /**
-     * Cidade do cliente final
+     * Texto opcional do corpo do boleto.
      * @var
      */
-    private $cep_cliente;
-    /**
-     * Link do logo impresso no boleto
-     * @var
-     */
-    private $logo_url;
-    /**
-     * Texto opcional do corpo do boleto
-     * @var
-     */
-    private $texto;
+    protected $texto;
+
     /**
      * Grupo
      * @var
      */
-    private $grupo;
+    protected $grupo;
+
     /**
      * Link do boleto
      * @var
      */
-    private $link;
-    /**
-     * Nosso numero de boleto
-     * @var
-     */
-    private $nosso_numero;
-    /**
-     * Numero do pedido informado pelo cliente
-     * @var
-     */
-    private $pedido_numero;
+    protected $link;
 
     /**
+     * Nosso numero de boleto.
      * @var
      */
-    private $credencial_boleto;
-
-    private $linha_digitavel;
-    
-    private $id_unico;
+    protected $nosso_numero;
 
     /**
+     * Numero do pedido informado pelo cliente.
      * @var
      */
-    private $chave_boleto;
+    protected $pedido_numero;
 
-    /**
-     * Boleto constructor.
-     * @param $credencial
-     * @param $chave
-     */
-    public function __construct($credencial, $chave)
-    {
-        $this->credencial_boleto = $credencial;
-        $this->chave_boleto = $chave;
-    }
+    protected $linha_digitavel;
+
+    protected $id_unico;
 
     /**
      * @return mixed
@@ -184,44 +188,6 @@ class Boleto
     }
 
     /**
-     * @return mixed
-     */
-    public function getCredencialBoleto()
-    {
-        return $this->credencial_boleto;
-    }
-
-    /**
-     * @param mixed $credencial_boleto
-     * @return Boleto
-     */
-    public function setCredencialBoleto($credencial_boleto)
-    {
-        $this->credencial_boleto = $credencial_boleto;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getChaveBoleto()
-    {
-        return $this->chave_boleto;
-    }
-
-    /**
-     * @param mixed $chave_boleto
-     * @return Boleto
-     */
-    public function setChaveBoleto($chave_boleto)
-    {
-        $this->chave_boleto = $chave_boleto;
-        return $this;
-    }
-
-
-
-    /**
      * @return date
      */
     public function getVencimento()
@@ -235,7 +201,7 @@ class Boleto
      */
     public function setVencimento($vencimento)
     {
-        $this->vencimento = $vencimento;
+        $this->vencimento = new DateTime($vencimento);
         return $this;
     }
 
@@ -251,7 +217,7 @@ class Boleto
      * @param mixed $valor
      * @return Boleto
      */
-    public function setValor($valor)
+    public function setValor(float $valor = 0.0)
     {
         $this->valor = $valor;
         return $this;
@@ -269,7 +235,7 @@ class Boleto
      * @param float $juros
      * @return Boleto
      */
-    public function setJuros($juros)
+    public function setJuros(float $juros = 0.0)
     {
         $this->juros = $juros;
         return $this;
@@ -287,7 +253,7 @@ class Boleto
      * @param float $multa
      * @return Boleto
      */
-    public function setMulta($multa)
+    public function setMulta(float $multa = 0.0)
     {
         $this->multa = $multa;
         return $this;
@@ -305,7 +271,7 @@ class Boleto
      * @param float $desconto
      * @return Boleto
      */
-    public function setDesconto($desconto)
+    public function setDesconto(float $desconto = 0.0)
     {
         $this->desconto = $desconto;
         return $this;
@@ -323,7 +289,7 @@ class Boleto
      * @param mixed $nome_cliente
      * @return Boleto
      */
-    public function setNomeCliente($nome_cliente)
+    public function setNomeCliente(string $nome_cliente = null)
     {
         $this->nome_cliente = $nome_cliente;
         return $this;
@@ -341,9 +307,9 @@ class Boleto
      * @param mixed $cpf_cliente
      * @return Boleto
      */
-    public function setCpfCliente($cpf_cliente)
+    public function setCpfCliente(string $cpf_cliente = null)
     {
-        $this->cpf_cliente = $cpf_cliente;
+        $this->cpf_cliente = str_replace(['-', '.'], [], $cpf_cliente);
         return $this;
     }
 
@@ -377,7 +343,7 @@ class Boleto
      * @param mixed $numero_cliente
      * @return Boleto
      */
-    public function setNumeroCliente($numero_cliente)
+    public function setNumeroCliente(int $numero_cliente = 0)
     {
         $this->numero_cliente = $numero_cliente;
         return $this;
@@ -395,9 +361,9 @@ class Boleto
      * @param mixed $complemento_cliente
      * @return Boleto
      */
-    public function setComplementoCliente($complemento_cliente)
+    public function setComplementoCliente(string $complemento_cliente = null)
     {
-        $this->complemento_cliente = $complemento_cliente;
+        $this->complemento_cliente = strip_tags($complemento_cliente);
         return $this;
     }
 
@@ -431,7 +397,7 @@ class Boleto
      * @param mixed $cidade_cliente
      * @return Boleto
      */
-    public function setCidadeCliente($cidade_cliente)
+    public function setCidadeCliente(string $cidade_cliente = null)
     {
         $this->cidade_cliente = $cidade_cliente;
         return $this;
@@ -451,7 +417,7 @@ class Boleto
      */
     public function setCepCliente($cep_cliente)
     {
-        $this->cep_cliente = $cep_cliente;
+        $this->cep_cliente = str_replace(['-', '.'], [], $cep_cliente);;
         return $this;
     }
 
@@ -485,9 +451,9 @@ class Boleto
      * @param mixed $texto
      * @return Boleto
      */
-    public function setTexto($texto)
+    public function setTexto(string $texto = null)
     {
-        $this->texto = $texto;
+        $this->texto = strip_tags($texto);
         return $this;
     }
 
@@ -511,37 +477,16 @@ class Boleto
 
 
     /**
-     * Pega os campos utilizados para a emissão do boleto bancário. 
+     * Pega os campos utilizados para a emissão do boleto bancário.
      * @return array
      */
-    public function getValues() 
+    public function getValues()
     {
-        $objectValues = get_object_vars($this);
-        $boletoValues = array();
-        foreach ($objectValues as $key => $value) {
-            if (!is_null($value)) {
-                $boletoValues[$key] = $value;
-            }
+        $boletoValues = [];
+        foreach (get_object_vars($this) as $key => $value) {
+            $boletoValues[$key] = $value ?: null;
         }
-
         return $boletoValues;
     }
-
-
-
-    /**
-     * Gera um boleto bancário no PJBank
-     * via API
-     */
-    public function gerar() {
-        $emissor = new Emissor($this);
-        $boletoGerado = $emissor->emitir();
-
-        $this->nosso_numero = $boletoGerado->nossonumero;
-        $this->id_unico = $boletoGerado->id_unico;
-        $this->linha_digitavel = $boletoGerado->linhaDigitavel;
-        $this->link = $boletoGerado->linkBoleto;
-    }
-
 
 }
