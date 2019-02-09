@@ -12,6 +12,8 @@ use DateTime;
 class Boleto
 {
 
+    protected $storage = [];
+
     /**
      * Vencimento do boleto bancário.
      * @var \DateTime
@@ -43,6 +45,41 @@ class Boleto
      * @var float
      */
     protected $desconto;
+
+    /**
+     * Valor de um desconto.
+     *
+     * @var float
+     */
+    protected $desconto2;
+
+    /**
+     * Valor de um desconto.
+     *
+     * @var float
+     */
+    protected $desconto3;
+
+    /**
+     * Valor de um desconto.
+     *
+     * @var float
+     */
+    protected $diasDesconto;
+
+    /**
+     * Valor de um desconto.
+     *
+     * @var float
+     */
+    protected $diasDesconto2;
+
+    /**
+     * Valor de um desconto.
+     *
+     * @var float
+     */
+    protected $diasDesconto3;
 
     /**
      * Nome do cliente final.
@@ -135,358 +172,26 @@ class Boleto
 
     protected $id_unico;
 
-    /**
-     * @return mixed
-     */
-    public function getLink()
-    {
-        return $this->link;
+    public function __set($property, $value) {
+
+        if ($property == 'storage' || !property_exists($this, $property)) {
+            return ;
+        }
+
+        $this->storage[strtolower($property)] = $this->$property = strip_tags($value);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getNossoNumero()
-    {
-        return $this->nosso_numero;
+    public function _get($property) {
+        return $this->storage[$property] ?? null;
     }
-
-    /**
-     * Undocumented function
-     * @return void
-     */
-    public function getIdUnico()
-    {
-        return $this->id_unico;
-    }
-
-    /**
-     * Setter do numero do pedido
-     * @param $pedido_numero
-     */
-    public function setPedidoNumero($pedido_numero)
-    {
-        $this->pedido_numero = $pedido_numero;
-        return $this;
-    }
-
-    /**
-     * Numero do pedido
-     * @return mixed
-     */
-    public function getPedidoNumero() {
-        return $this->pedido_numero;
-    }
-
-    /**
-     * Undocumented function
-     * @return void
-     */
-    public function getLinhaDigitavel()
-    {
-        return $this->linha_digitavel;
-    }
-
-    /**
-     * @return date
-     */
-    public function getVencimento()
-    {
-        return $this->vencimento;
-    }
-
-    /**
-     * @param date $vencimento
-     * @return Boleto
-     */
-    public function setVencimento($vencimento)
-    {
-        $this->vencimento = new DateTime($vencimento);
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getValor()
-    {
-        return $this->valor;
-    }
-
-    /**
-     * @param mixed $valor
-     * @return Boleto
-     */
-    public function setValor(float $valor = 0.0)
-    {
-        $this->valor = $valor;
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getJuros()
-    {
-        return $this->juros;
-    }
-
-    /**
-     * @param float $juros
-     * @return Boleto
-     */
-    public function setJuros(float $juros = 0.0)
-    {
-        $this->juros = $juros;
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMulta()
-    {
-        return $this->multa;
-    }
-
-    /**
-     * @param float $multa
-     * @return Boleto
-     */
-    public function setMulta(float $multa = 0.0)
-    {
-        $this->multa = $multa;
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getDesconto()
-    {
-        return $this->desconto;
-    }
-
-    /**
-     * @param float $desconto
-     * @return Boleto
-     */
-    public function setDesconto(float $desconto = 0.0)
-    {
-        $this->desconto = $desconto;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNomeCliente()
-    {
-        return $this->nome_cliente;
-    }
-
-    /**
-     * @param mixed $nome_cliente
-     * @return Boleto
-     */
-    public function setNomeCliente(string $nome_cliente = null)
-    {
-        $this->nome_cliente = $nome_cliente;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCpfCliente()
-    {
-        return $this->cpf_cliente;
-    }
-
-    /**
-     * @param mixed $cpf_cliente
-     * @return Boleto
-     */
-    public function setCpfCliente(string $cpf_cliente = null)
-    {
-        $this->cpf_cliente = str_replace(['-', '.'], [], $cpf_cliente);
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEnderecoCliente()
-    {
-        return $this->endereco_cliente;
-    }
-
-    /**
-     * @param mixed $endereco_cliente
-     * @return Boleto
-     */
-    public function setEnderecoCliente($endereco_cliente)
-    {
-        $this->endereco_cliente = $endereco_cliente;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNumeroCliente()
-    {
-        return $this->numero_cliente;
-    }
-
-    /**
-     * @param mixed $numero_cliente
-     * @return Boleto
-     */
-    public function setNumeroCliente(int $numero_cliente = 0)
-    {
-        $this->numero_cliente = $numero_cliente;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getComplementoCliente()
-    {
-        return $this->complemento_cliente;
-    }
-
-    /**
-     * @param mixed $complemento_cliente
-     * @return Boleto
-     */
-    public function setComplementoCliente(string $complemento_cliente = null)
-    {
-        $this->complemento_cliente = strip_tags($complemento_cliente);
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBairroCliente()
-    {
-        return $this->bairro_cliente;
-    }
-
-    /**
-     * @param mixed $bairro_cliente
-     * @return Boleto
-     */
-    public function setBairroCliente($bairro_cliente)
-    {
-        $this->bairro_cliente = $bairro_cliente;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCidadeCliente()
-    {
-        return $this->cidade_cliente;
-    }
-
-    /**
-     * @param mixed $cidade_cliente
-     * @return Boleto
-     */
-    public function setCidadeCliente(string $cidade_cliente = null)
-    {
-        $this->cidade_cliente = $cidade_cliente;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCepCliente()
-    {
-        return $this->cep_cliente;
-    }
-
-    /**
-     * @param mixed $cep_cliente
-     * @return Boleto
-     */
-    public function setCepCliente($cep_cliente)
-    {
-        $this->cep_cliente = str_replace(['-', '.'], [], $cep_cliente);;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLogoUrl()
-    {
-        return $this->logo_url;
-    }
-
-    /**
-     * @param mixed $logo_url
-     * @return Boleto
-     */
-    public function setLogoUrl($logo_url)
-    {
-        $this->logo_url = $logo_url;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTexto()
-    {
-        return $this->texto;
-    }
-
-    /**
-     * @param mixed $texto
-     * @return Boleto
-     */
-    public function setTexto(string $texto = null)
-    {
-        $this->texto = strip_tags($texto);
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getGrupo()
-    {
-        return $this->grupo;
-    }
-
-    /**
-     * @param mixed $grupo
-     * @return Boleto
-     */
-    public function setGrupo($grupo)
-    {
-        $this->grupo = $grupo;
-        return $this;
-    }
-
 
     /**
      * Pega os campos utilizados para a emissão do boleto bancário.
+     *
      * @return array
      */
-    public function getValues()
-    {
-        $boletoValues = [];
-        foreach (get_object_vars($this) as $key => $value) {
-            $boletoValues[$key] = $value ?: null;
-        }
-        return $boletoValues;
+    public function toArray() : array {
+        return $this->storage;
     }
 
 }
