@@ -37,57 +37,79 @@ class Boleto {
   protected $valor;
 
   /**
-   * Valor do juros cobrado no boleto.
+   * Taxa de juros ao mês.
+   * Valor informado será dividido por 30 pra ser encontrado a taxa diária.
+   * Casas decimais devem ser separadas por ponto,
+   * máximo de 2 casas decimais, não enviar
+   * caracteres diferentes de número ou ponto.
+   * Não usar separadores de milhares.
+   *
    * @var float
    */
   protected $juros;
 
   /**
-   * Valor da multa cobrada em um boleto.
+   * Taxa de multa por atraso.
+   * Casas decimais devem ser separadas por ponto,
+   * máximo de 2 casas decimais,
+   * não enviar caracteres diferentes de número ou ponto.
+   * Não usar separadores de milhares.
    *
    * @var float
    */
   protected $multa;
 
   /**
-   * Valor de um desconto.
+   * Valor do desconto por pontualidade, em Reais.
+   * Casas decimais devem ser separadas por ponto,
+   * máximo de 2 casas decimais, não enviar caracteres
+   * diferentes de número ou ponto.
+   * Não usar separadores de milhares.
    *
    * @var float
    */
   protected $desconto;
 
   /**
-   * Valor de um desconto.
+   * Valor do desconto por pontualidade, em Reais.
+   * Casas decimais devem ser separadas por ponto,
+   * máximo de 2 casas decimais, não enviar caracteres
+   * diferentes de número ou ponto.
+   * Não usar separadores de milhares.
    *
    * @var float
    */
   protected $desconto2;
 
   /**
-   * Valor de um desconto.
+   * Valor do desconto por pontualidade, em Reais.
+   * Casas decimais devem ser separadas por ponto,
+   * máximo de 2 casas decimais, não enviar caracteres
+   * diferentes de número ou ponto.
+   * Não usar separadores de milhares.
    *
    * @var float
    */
   protected $desconto3;
 
   /**
-   * Valor de um desconto.
+   * Dias de desconto antes da data de vencimento.
    *
-   * @var float
+   * @var int
    */
   protected $diasDesconto;
 
   /**
-   * Valor de um desconto.
+   * Dias de desconto antes da data de vencimento.
    *
-   * @var float
+   * @var int
    */
   protected $diasDesconto2;
 
   /**
-   * Valor de um desconto.
+   * Dias de desconto antes da data de vencimento.
    *
-   * @var float
+   * @var int
    */
   protected $diasDesconto3;
 
@@ -99,7 +121,11 @@ class Boleto {
   protected $nome_cliente;
 
   /**
-   * CPF do cliente final.
+   * CPF ou CNPJ do pagador.
+   * Por enquanto não é obrigatório,
+   * porém por determinação da Febraban
+   * será obrigatório em breve.
+   *
    * @var
    */
   protected $cpf_cliente;
