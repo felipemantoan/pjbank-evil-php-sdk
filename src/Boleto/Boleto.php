@@ -181,7 +181,7 @@ class Boleto
         $this->storage[strtolower($property)] = $this->$property = strip_tags($value);
     }
 
-    public function _get($property) {
+    public function __get($property) {
         return $this->storage[$property] ?? null;
     }
 
