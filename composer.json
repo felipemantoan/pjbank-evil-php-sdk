@@ -1,8 +1,13 @@
 {
-    "name": "matheus/pjbank-php-sdk",
-    "description": "PJBank PHP SDK",
+    "name": "felipemantoan/pjbank-php-sdk",
+    "description": "PJBank PHP SDK aka Evil Version",
     "type": "library",
-    "authors": [{
+    "authors": [
+        {
+            "name": "Luís Felipe Mantoan",
+            "email": "luis.mantoan@superlogica.com"
+        },
+        {
         "name": "Matheus Fidelis",
         "email": "matheus.fidelis@superlogica.com"
     }],
@@ -12,14 +17,9 @@
         "guzzlehttp/guzzle": "^6.2@dev",
         "phpunit/phpunit": "^6.4@dev"
     },
-    "scripts" : {
-        "test" : "./vendor/bin/phpunit --colors --debug",
-        "travis" : "phpunit --colors --debug"
-    },
     "autoload": {
-        "psr-4": { 
-            "PJBank\\": "src/",
-            "PJBankTests\\": "tests" 
+        "psr-4": {
+            "PJBank\\": "src/"
         }
     }
 }
