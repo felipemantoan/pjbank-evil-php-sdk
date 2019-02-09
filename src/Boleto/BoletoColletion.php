@@ -61,9 +61,11 @@ class BoletoColletion implements Iterator
      * @return array
      */
     public function toArray() : array {
-        return array_map(function($boleto){
-            return $boleto->toArray();
-        },$this->storage);
+        $collection = [];
+        foreach ($this->storage['cobrancas'] as $boleto) {
+            $collection['cobrancas'][] = $boleto->toArray();
+        }
+        return $collection;
     }
 
 }
