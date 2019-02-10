@@ -215,7 +215,9 @@ class Boleto {
    */
   protected $especie_documento;
 
+
   protected $linha_digitavel;
+
 
   protected $id_unico;
 
@@ -232,9 +234,7 @@ class Boleto {
    * @param array $data
    *   Dados que compoe o boleto.
    */
-  public function __construct(array $data = [])
-  {
-
+  public function __construct(array $data = []) {
     foreach ($data as $property => $value) {
       $this->__set($property, $value);
     }
@@ -253,21 +253,25 @@ class Boleto {
 
     $value = strip_tags($value);
 
-      // Não deixa o a propriedade storage ser setada.
-      // Verifica se a propriedade existe.
+    // Não deixa o a propriedade storage ser setada.
+    // Verifica se a propriedade existe.
     if ($property == 'storage' || !property_exists($this, $property)) {
       return;
     }
 
-      //Remove caracteres -(traço) e .(ponto).
+    //Remove caracteres -(traço) e .(ponto).
     if ($property == 'cpf_cliente' || $property == 'cep_cliente') {
       $value = str_replace(['-', '.'], [''], $value);
     }
 
-      // Converte o dado previamente.
+    // Converte o dado previamente.
     if ($property == 'vencimento') {
       $date = new DateTime($value);
       $value = $date->format('m/d/Y');
+    }
+
+    if ($property == 'pedido_numero' && empty($value)) {
+      $value = rand();
     }
 
     $this->storage[strtolower($property)] = $this->$property = $value;
@@ -281,8 +285,7 @@ class Boleto {
    *
    * @return mixed Valor da propriedade.
    */
-  public function __get($property)
-  {
+  public function __get($property) {
     return $this->storage[$property] ?? $this->$property ?? null;
   }
 
@@ -291,8 +294,7 @@ class Boleto {
    *
    * @return array
    */
-  public function toArray() : array
-  {
+  public function toArray() : array {
     return $this->storage;
   }
 
