@@ -4,6 +4,7 @@ namespace PJBank\Client;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
@@ -13,8 +14,8 @@ use PJBank\Exception\KeyNotFoundException;
 /**
  * Client Factory
  */
-class PJBank implements PJBankInterface
-{
+class PJBank implements PJBankInterface {
+
     /**
      * A chave gerada após o cadastro.
      *
@@ -66,8 +67,7 @@ class PJBank implements PJBankInterface
      * @param string $chave
      *   Uma chave válida.
      */
-    public function __construct(ClientInterface $client, string $credencial = null, string $chave = null)
-    {
+    public function __construct(ClientInterface $client, string $credencial = null, string $chave = null) {
         $this->client = $client;
         $this->credencial = $credencial;
         $this->chave = $chave;
@@ -96,23 +96,19 @@ class PJBank implements PJBankInterface
         throw new Exception('Este endpoint deve conter a credencial.');
     }
 
-    public function sendPut(string $endpoint, array $data = [])
-    {
+    public function sendPut(string $endpoint, array $data = []) {
         return $this->send('PUT', $endpoint, $data);
     }
 
-    public function sendDelete(string $endpoint, array $data = [])
-    {
+    public function sendDelete(string $endpoint, array $data = []) {
         return $this->send('DELETE', $endpoint, $data);
     }
 
-    public function sendPost(string $endpoint, array $data = [], bool $withKey = true)
-    {
+    public function sendPost(string $endpoint, array $data = [], bool $withKey = true) {
         return $this->send('POST', $endpoint, $data, $withKey);
     }
 
-    public function sendGet(string $endpoint, array $data = [])
-    {
+    public function sendGet(string $endpoint, array $data = []) {
         return $this->send('GET', $endpoint, $data);
     }
 
@@ -146,10 +142,16 @@ class PJBank implements PJBankInterface
             $endpoint = $this->parseEndpoint($endpoint);
         }
 
-        $response = $this->client->request($method, $endpoint, [
-            RequestOptions::JSON => $data,
-            RequestOptions::HEADERS => ['X-CHAVE' => $this->chave],
-        ]);
+        try {
+            $response = $this->client->request($method, $endpoint, [
+                RequestOptions::JSON => $data,
+                RequestOptions::HEADERS => ['X-CHAVE' => $this->chave],
+            ]);
+        }
+        catch (RequestException $e) {
+            $response = $e->getResponse();
+        }
+
 
         return json_decode($response->getBody(), true) ?: [];
     }
