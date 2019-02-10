@@ -249,8 +249,7 @@ class Boleto {
    * @param mixed $value
    *   O valor da propriedade.
    */
-  public function __set($property, $value)
-  {
+  public function __set($property, $value) {
 
     $value = strip_tags($value);
 
@@ -288,6 +287,17 @@ class Boleto {
    */
   public function __get($property) {
     return $this->storage[$property] ?? $this->$property ?? null;
+  }
+
+  /**
+   * Este método inclui split de pagamento ao boleto.
+   *
+   * @param \PJBank\Boleto\PjPaymentSplit $split
+   *   Objeto contendo os dados de split.
+   */
+  public function addPaymentSplit(PaymentSplit $split) {
+    $this->storage['split'][] = $split->toArray();
+    return $this;
   }
 
   /**
