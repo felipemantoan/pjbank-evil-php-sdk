@@ -12,9 +12,10 @@ use DateTime;
 class Boleto {
 
   /**
-   * Este parâmetro guarda os dados
+   * Esta propriedade guarda os dados
    * a fim de facilitar a coversão para array,
    * além de facilitar a migração para um iterator.
+   *
    * @var array
    */
   protected $storage = [];
