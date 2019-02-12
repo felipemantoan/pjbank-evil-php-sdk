@@ -2,18 +2,11 @@
 
 namespace PJBank\Boleto;
 
-use PJBank\Client\PJBank;
 use PJBank\Client\PJBankInterface;
 
 class BoletoManager {
 
 	protected $pjBank;
-
-	public static function create(PJBankInterface $pjBank = null) {
-		return new static(
-			$pjBank ?: PJBank::create()
-		);
-	}
 
 	public function __construct(PJBankInterface $pjBank) {
 		$this->pjBank = $pjBank;
@@ -29,6 +22,19 @@ class BoletoManager {
 
 	public function sendBoletoCollection(BoletoColletion $collection) {
 		return $this->pjBank->sendPost('/recebimentos/{{ %credencial% }}/transacoes', $collection->toArray());
+	}
+
+	public function printBoletoCollection(BoletoColletion $collection, string $format = null) {
+
+		$data = [
+			'formato' => $format,
+		];
+
+		foreach ($collection as $boleto) {
+			$data['pedido_numero'][] = $boleto->pedido_numero;
+		}
+
+		return $this->pjBank->sendPost('/recebimentos/{{ %credencial% }}/transacoes/lotes', $data);
 	}
 
 }
