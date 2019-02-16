@@ -9,5 +9,5 @@ use Exception;
  */
 class KeyNotFoundException extends Exception
 {
-	protected $message = 'Chave não encontrada.';
+    protected $message = 'Chave não encontrada.';
 }

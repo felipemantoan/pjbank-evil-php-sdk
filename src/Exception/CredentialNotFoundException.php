@@ -9,5 +9,5 @@ use Exception;
  */
 class CredentialNotFoundException extends Exception
 {
-	protected $message = 'Credencial não encontrada.';
+    protected $message = 'Credencial não encontrada.';
 }
