@@ -17,6 +17,5 @@
   "php.suggest.basic": false,
   "php.validate.executablePath": "/usr/bin/php",
   "phpcs.enable": true,
-  "phpcs.standard": "./vendor/escapestudios/symfony2-coding-standard/Symfony",
   "phpcs.executablePath": "./vendor/bin/phpcs",
 }
