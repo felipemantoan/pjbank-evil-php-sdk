@@ -4,9 +4,13 @@ namespace PJBank\Boleto;
 
 use PJBank\Client\PJBankInterface;
 
-class BoletoManager
+class BoletoManager implements BoletoManagerInterface
 {
-
+    /**
+     * Instância de PJBank\Client\PJBank.
+     *
+     * @var \PJBank\Client\PJBank
+     */
     protected $pjBank;
 
     public function __construct(PJBankInterface $pjBank)
