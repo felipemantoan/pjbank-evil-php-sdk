@@ -8,9 +8,10 @@
             "email": "luis.mantoan@superlogica.com"
         },
         {
-        "name": "Matheus Fidelis",
-        "email": "matheus.fidelis@superlogica.com"
-    }],
+            "name": "Matheus Fidelis",
+            "email": "matheus.fidelis@superlogica.com"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
@@ -19,6 +20,11 @@
     "autoload": {
         "psr-4": {
             "PJBank\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/src"
         }
     },
     "require-dev": {
