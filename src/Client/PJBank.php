@@ -10,6 +10,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
 use PJBank\Exception\CredentialNotFoundException;
 use PJBank\Exception\KeyNotFoundException;
+use Exception;
 
 /**
  * Client Factory
