@@ -141,11 +141,11 @@ class PJBank implements PJBankInterface
     {
         if ($withKey) {
             if (empty($this->chave)) {
-                throw new CredentialNotFoundException();
+                throw new KeyNotFoundException();
             }
 
             if (empty($this->credencial)) {
-                throw new KeyNotFoundException();
+                throw new CredentialNotFoundException();
             }
 
             $endpoint = $this->parseEndpoint($endpoint);
