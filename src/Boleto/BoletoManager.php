@@ -25,12 +25,12 @@ class BoletoManager implements BoletoManagerInterface
 
     public function sendBoleto(Boleto $boleto)
     {
-        return $this->pjBank->sendPost('/recebimentos/{{ %credencial% }}/transacoes', $boleto->toArray());
+        return $this->pjBank->sendPost('/recebimentos/{{ %credencial% }}/transacoes', [], $boleto->toArray());
     }
 
     public function sendBoletoCollection(BoletoColletion $collection)
     {
-        return $this->pjBank->sendPost('/recebimentos/{{ %credencial% }}/transacoes', $collection->toArray());
+        return $this->pjBank->sendPost('/recebimentos/{{ %credencial% }}/transacoes', [], $collection->toArray());
     }
 
     public function printBoletoCollection(BoletoColletion $collection, string $format = null)
@@ -44,6 +44,6 @@ class BoletoManager implements BoletoManagerInterface
             $data['pedido_numero'][] = $boleto->pedido_numero;
         }
 
-        return $this->pjBank->sendPost('/recebimentos/{{ %credencial% }}/transacoes/lotes', $data);
+        return $this->pjBank->sendPost('/recebimentos/{{ %credencial% }}/transacoes/lotes', [], $data);
     }
 }
