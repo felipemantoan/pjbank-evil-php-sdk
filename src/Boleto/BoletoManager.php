@@ -37,7 +37,7 @@ class BoletoManager implements BoletoManagerInterface
     {
 
         $data = [
-        'formato' => $format,
+            'formato' => $format,
         ];
 
         foreach ($collection as $boleto) {
