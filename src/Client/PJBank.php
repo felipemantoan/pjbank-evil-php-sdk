@@ -114,7 +114,7 @@ class PJBank implements PJBankInterface
      */
     public function sendPut(string $endpoint, array $query = [], array $data = [])
     {
-        return $this->send('PUT', $endpoint, $data);
+        return $this->send('PUT', $endpoint, $query, $data);
     }
 
     /**
@@ -130,7 +130,7 @@ class PJBank implements PJBankInterface
      */
     public function sendDelete(string $endpoint, array $query = [], array $data = [])
     {
-        return $this->send('DELETE', $endpoint, $data);
+        return $this->send('DELETE', $endpoint, $query, $data);
     }
 
     /**
@@ -147,7 +147,7 @@ class PJBank implements PJBankInterface
      */
     public function sendPost(string $endpoint, array $query = [], array $data = [], bool $withKey = true)
     {
-        return $this->send('POST', $endpoint, $data, $withKey);
+        return $this->send('POST', $endpoint, $query, $data, $withKey);
     }
 
     /**
@@ -163,7 +163,7 @@ class PJBank implements PJBankInterface
      */
     public function sendGet(string $endpoint, array $query = [], array $data = [])
     {
-        return $this->send('GET', $endpoint, $data);
+        return $this->send('GET', $endpoint, $query, $data);
     }
 
     /**
