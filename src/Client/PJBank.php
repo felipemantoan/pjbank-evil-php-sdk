@@ -17,7 +17,6 @@ use Exception;
  */
 class PJBank implements PJBankInterface
 {
-
     /**
      * A chave gerada após o cadastro.
      *
@@ -102,22 +101,66 @@ class PJBank implements PJBankInterface
         throw new Exception('Este endpoint deve conter a credencial.');
     }
 
-    public function sendPut(string $endpoint, array $data = [])
+    /**
+     * Esta função envia um PUT para o endpoint indicado.
+     *
+     * @param string $endpoint Endpoint E.g. /test/boleto/{{ %credencial% }}
+     * @param array $query Fragmentos que compoe o endpoint.
+     * @param array $data Dados que serão enviados.
+     *
+     * @return array|null
+     * @throws PJBank\Exception\CredentialNotFoundException
+     * @throws PJBank\Exception\KeyNotFoundException
+     */
+    public function sendPut(string $endpoint, array $query = [], array $data = [])
     {
         return $this->send('PUT', $endpoint, $data);
     }
 
-    public function sendDelete(string $endpoint, array $data = [])
+    /**
+     * Esta função envia um DELETE para o endpoint indicado.
+     *
+     * @param string $endpoint Endpoint E.g. /test/boleto/{{ %credencial% }}
+     * @param array $query Fragmentos que compoe o endpoint.
+     * @param array $data Dados que serão enviados.
+     *
+     * @return array|null
+     * @throws PJBank\Exception\CredentialNotFoundException
+     * @throws PJBank\Exception\KeyNotFoundException
+     */
+    public function sendDelete(string $endpoint, array $query = [], array $data = [])
     {
         return $this->send('DELETE', $endpoint, $data);
     }
 
-    public function sendPost(string $endpoint, array $data = [], bool $withKey = true)
+    /**
+     * Esta função envia um POST para o endpoint indicado.
+     *
+     * @param string $endpoint Endpoint E.g. /test/boleto/{{ %credencial% }}
+     * @param array $query Fragmentos que compoe o endpoint.
+     * @param array $data Dados que serão enviados.
+     *
+     * @return array|null
+     * @throws PJBank\Exception\CredentialNotFoundException
+     * @throws PJBank\Exception\KeyNotFoundException
+     */
+    public function sendPost(string $endpoint, array $query = [], array $data = [], bool $withKey = true)
     {
         return $this->send('POST', $endpoint, $data, $withKey);
     }
 
-    public function sendGet(string $endpoint, array $data = [])
+    /**
+     * Esta função envia um GET para o endpoint indicado.
+     *
+     * @param string $endpoint Endpoint E.g. /test/boleto/{{ %credencial% }}
+     * @param array $query Fragmentos que compoe o endpoint.
+     * @param array $data Dados que serão enviados.
+     *
+     * @return array|null
+     * @throws PJBank\Exception\CredentialNotFoundException
+     * @throws PJBank\Exception\KeyNotFoundException
+     */
+    public function sendGet(string $endpoint, array $query = [], array $data = [])
     {
         return $this->send('GET', $endpoint, $data);
     }
@@ -137,7 +180,7 @@ class PJBank implements PJBankInterface
      * @return array
      *   Dados vindos da requisição.
      */
-    protected function send(string $method, string $endpoint, array $data = [], bool $withKey = true)
+    protected function send(string $method, string $endpoint, array $query = [], array $data = [], bool $withKey = true)
     {
         if ($withKey) {
             if (empty($this->chave)) {
