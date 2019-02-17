@@ -40,32 +40,55 @@ class BoletoColletion implements Iterator
         return $this;
     }
 
+    /**
+     * Retona o elemento do lote
+     *
+     * @param string $index Index do boleto no lote.
+     *
+     * @return \PJBank\Boleto\Boleto|null
+     */
     public function get($index)
     {
         return $this->storage['cobrancas'][$index] ?? null;
     }
 
+    /**
+     * Retorna o lote de boletos.
+     *
+     * @return array[\PJBank\Boleto\Boleto]|array[null]
+     */
     public function getItems()
     {
         return $this->storage['cobrancas'] ?? [];
     }
 
+    /**
+     * Caminha para o item anterior do array.
+     */
     public function rewind()
     {
         return reset($this->storage['cobrancas']);
     }
 
-
+    /**
+     * Caminha para o próximo item do array.
+     */
     public function next()
     {
         return next($this->storage['cobrancas']);
     }
 
+    /**
+     * Retorna o item atual do array.
+     */
     public function current()
     {
         return current($this->storage['cobrancas']);
     }
 
+    /**
+     * Retorna o index atual do array.
+     */
     public function key()
     {
         return key($this->storage['cobrancas']);
