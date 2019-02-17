@@ -12,12 +12,26 @@ class BoletoColletion implements Iterator
 
     protected $storage = [];
 
+    /**
+     * Esta função inclui um novo boleto ao lote.
+     *
+     * @param \PJBank\Boleto\Boleto $boleto Um Boleto Preenchido.
+     *
+     * @return $this
+     */
     public function add(Boleto $boleto)
     {
         $this->storage['cobrancas'][$boleto->pedido_numero] = $boleto;
         return $this;
     }
 
+    /**
+     * Esta função inclui uma coleção de boletos ao lote.
+     *
+     * @param array[\PJBank\Boleto\Boleto] $boletos Lista de boletos.
+     *
+     * @return $this
+     */
     public function addItems(array $boletos = [])
     {
         foreach ($boletos as $boleto) {
@@ -57,7 +71,12 @@ class BoletoColletion implements Iterator
         return key($this->storage['cobrancas']);
     }
 
-    public function valid()
+    /**
+     * Verifica se o array está válido.
+     *
+     * @return bool
+     */
+    public function valid() : bool
     {
         return !empty(key($this->storage['cobrancas']));
     }
