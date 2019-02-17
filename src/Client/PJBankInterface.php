@@ -54,6 +54,7 @@ interface PJBankInterface
      * @param string $endpoint Endpoint E.g. /test/boleto/{{ %credencial% }}
      * @param array $query Fragmentos que compoe o endpoint.
      * @param array $data Dados que serão enviados.
+     * @param bool $withKey Força a verificação de uma chave no request enviado.
      *
      * @return array
      * @throws PJBank\Exception\CredentialNotFoundException

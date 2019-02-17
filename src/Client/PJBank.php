@@ -108,7 +108,7 @@ class PJBank implements PJBankInterface
      * @param array $query Fragmentos que compoe o endpoint.
      * @param array $data Dados que serão enviados.
      *
-     * @return array|null
+     * @return array
      * @throws PJBank\Exception\CredentialNotFoundException
      * @throws PJBank\Exception\KeyNotFoundException
      */
@@ -124,7 +124,7 @@ class PJBank implements PJBankInterface
      * @param array $query Fragmentos que compoe o endpoint.
      * @param array $data Dados que serão enviados.
      *
-     * @return array|null
+     * @return array
      * @throws PJBank\Exception\CredentialNotFoundException
      * @throws PJBank\Exception\KeyNotFoundException
      */
@@ -139,8 +139,9 @@ class PJBank implements PJBankInterface
      * @param string $endpoint Endpoint E.g. /test/boleto/{{ %credencial% }}
      * @param array $query Fragmentos que compoe o endpoint.
      * @param array $data Dados que serão enviados.
+     * @param bool $withKey Força a verificação de uma chave no request enviado.
      *
-     * @return array|null
+     * @return array
      * @throws PJBank\Exception\CredentialNotFoundException
      * @throws PJBank\Exception\KeyNotFoundException
      */
@@ -156,7 +157,7 @@ class PJBank implements PJBankInterface
      * @param array $query Fragmentos que compoe o endpoint.
      * @param array $data Dados que serão enviados.
      *
-     * @return array|null
+     * @return array
      * @throws PJBank\Exception\CredentialNotFoundException
      * @throws PJBank\Exception\KeyNotFoundException
      */
