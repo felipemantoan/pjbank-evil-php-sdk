@@ -23,22 +23,54 @@ interface PJBankInterface
     const SANDBOX_URI = "https://sandbox.pjbank.com.br/";
 
     /**
-     * Método envia um put usando a credencial e chave.
+     * Esta função envia um PUT para o endpoint indicado.
+     *
+     * @param string $endpoint Endpoint E.g. /test/boleto/{{ %credencial% }}
+     * @param array $query Fragmentos que compoe o endpoint.
+     * @param array $data Dados que serão enviados.
+     *
+     * @return array
+     * @throws PJBank\Exception\CredentialNotFoundException
+     * @throws PJBank\Exception\KeyNotFoundException
      */
-    public function sendPut(string $endpoint, array $data = []);
+    public function sendPut(string $endpoint, array $query = [], array $data = []);
 
     /**
-     * Método envia um delete usando a credencial e chave.
+     * Esta função envia um DELETE para o endpoint indicado.
+     *
+     * @param string $endpoint Endpoint E.g. /test/boleto/{{ %credencial% }}
+     * @param array $query Fragmentos que compoe o endpoint.
+     * @param array $data Dados que serão enviados.
+     *
+     * @return array
+     * @throws PJBank\Exception\CredentialNotFoundException
+     * @throws PJBank\Exception\KeyNotFoundException
      */
-    public function sendDelete(string $endpoint, array $data = []);
+    public function sendDelete(string $endpoint, array $query = [], array $data = []);
 
     /**
-     * Método envia um post usando a credencial e chave.
+     * Esta função envia um POST para o endpoint indicado.
+     *
+     * @param string $endpoint Endpoint E.g. /test/boleto/{{ %credencial% }}
+     * @param array $query Fragmentos que compoe o endpoint.
+     * @param array $data Dados que serão enviados.
+     *
+     * @return array
+     * @throws PJBank\Exception\CredentialNotFoundException
+     * @throws PJBank\Exception\KeyNotFoundException
      */
-    public function sendPost(string $endpoint, array $data = [], bool $withKey = true);
+    public function sendPost(string $endpoint, array $query = [], array $data = [], bool $withKey = true);
 
     /**
-     * Método envia um get usando a credencial e chave.
+     * Esta função envia um GET para o endpoint indicado.
+     *
+     * @param string $endpoint Endpoint E.g. /test/boleto/{{ %credencial% }}
+     * @param array $query Fragmentos que compoe o endpoint.
+     * @param array $data Dados que serão enviados.
+     *
+     * @return array
+     * @throws PJBank\Exception\CredentialNotFoundException
+     * @throws PJBank\Exception\KeyNotFoundException
      */
-    public function sendGet(string $endpoint, array $data = []);
+    public function sendGet(string $endpoint, array $query = [], array $data = []);
 }
