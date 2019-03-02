@@ -5,6 +5,8 @@ jobs:
       - image: wodby/php:7.2-4.11.2
     steps:
       - checkout
+      - run: vendor/bin/phpcs src/ -v
+      - checkout
       - run: composer install
       - run: mkdir -p cov/fastest/
       - run: find tests/ -name "*Test.php" | vendor/liuggio/fastest/fastest "vendor/phpunit/phpunit/phpunit -c . {} --coverage-php cov/fastest/{n}.cov;"
