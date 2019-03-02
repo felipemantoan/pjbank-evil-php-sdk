@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  composer-install:
     docker:
       - image: wodby/php:7.2-4.11.2
     steps:
