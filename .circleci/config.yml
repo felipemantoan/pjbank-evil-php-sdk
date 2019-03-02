@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run: composer install
       - run: mkdir -p cov/fastest/
-      - run: find tests/ -name "*Test.php" | ./vendor/liuggio/fastest/fastest "vendor/phpunit/phpunit/phpunit -c . {};"
+      - run: find tests/ -name "*Test.php" | vendor/liuggio/fastest/fastest "vendor/phpunit/phpunit/phpunit -c . {} --coverage-php cov/fastest/{n}.cov;"
       - run: vendor/bin/phpcov merge cov/fastest/ --html cov/merge/fastest/
       - store_artifacts:
           path: cov/merge/fastest/
