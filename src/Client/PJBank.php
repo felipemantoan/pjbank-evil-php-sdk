@@ -101,7 +101,7 @@ class PJBank implements PJBankInterface
             }
 
             // Dispara uma excessão caso não exista uma {{ %credencial% }} no endpoint.
-            throw new Exception('Token não encontrado!');
+            throw new Exception('Token ' . $token . ' não foi encontrado!');
         }
 
         return $endpoint;
