@@ -44,7 +44,7 @@ class PJBank implements PJBankInterface
      *
      * @return \PJBank\PJBankClient
      */
-    public static function create(array $configs = [], bool $sandbox = false, callable $handler = null)
+    public static function create(array $configs = [], bool $sandbox = true, callable $handler = null)
     {
         return new static(
             new Client(
@@ -87,18 +87,24 @@ class PJBank implements PJBankInterface
      *   Endpoint modificado.
      *   E.g. /contadigital/ddf9acf38aed262f90906ede9ac20333/transacaoes
      */
-    protected function parseEndpoint(string $endpoint)
+    protected function parseEndpoint(string $endpoint, array $tokens = [])
     {
+        $tokens['{{ %credencial% }}'] = $this->credencial;
 
-        // Verifica se existe uma credencial na string.
-        if (strpos($endpoint, '{{ %credencial% }}') !== false) {
-            // Substitui {{ %credencial% }} por uma hash.
-            // E.g. ddf9acf38aed262f90906ede9ac20333
-            return str_replace('{{ %credencial% }}', $this->credencial, $endpoint);
+        foreach ($tokens as $token => $value) {
+            // Verifica se existe o token na string.
+            if (strpos($endpoint, $token) !== false) {
+                // Substitui {{ %credencial% }} por uma hash.
+                // E.g. ddf9acf38aed262f90906ede9ac20333
+                $endpoint = str_replace($token, $value, $endpoint);
+                continue;
+            }
+
+            // Dispara uma excessão caso não exista uma {{ %credencial% }} no endpoint.
+            throw new Exception('Token não encontrado!');
         }
 
-        // Dispara uma excessão caso não exista uma {{ %credencial% }} no endpoint.
-        throw new Exception('Este endpoint deve conter a credencial.');
+        return $endpoint;
     }
 
     /**
