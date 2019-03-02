@@ -29,6 +29,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "8",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "liuggio/fastest": "^1.6"
     }
 }
