@@ -5,4 +5,4 @@ jobs:
       - image: wodby/php:7.2-4.11.2
     steps:
       - checkout
-      - run: cd project && composer install
+      - run: composer install
