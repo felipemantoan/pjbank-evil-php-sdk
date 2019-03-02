@@ -4,5 +4,5 @@ jobs:
     docker:
       - image: wodby/php:7.2-4.11.2
     steps:
-      - composer install
+      - composer
       - run: cd project/ && composer install
