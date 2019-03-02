@@ -7,5 +7,5 @@ jobs:
       - checkout
       - run: composer install
       - run: mkdir -p cov/fastest/
-      - run: ffind tests/ -name "*Test.php" | ./vendor/liuggio/fastest/fastest "vendor/phpunit/phpunit/phpunit -c phpunit.xml {};"
+      - run: find tests/ -name "*Test.php" | ./vendor/liuggio/fastest/fastest "vendor/phpunit/phpunit/phpunit -c phpunit.xml {};"
       - run: vendor/bin/phpcov merge cov/fastest/ --html cov/merge/fastest/
